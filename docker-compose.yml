@@ -33,7 +33,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./custom.cnf:/etc/mysql/conf.d/custom.cnf  # Pastikan file custom.cnf dimuat ke dalam direktori konfigurasi MySQL
+      - ./custom.cnf:/etc/mysql/conf.d/custom.cnf
       - "mysql_data:/var/lib/mysql"
     networks:
       - my_network
