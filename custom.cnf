@@ -1,0 +1,7 @@
+[mysqld]
+sql_mode=STRICT_TRANS_TABLES
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+log_error=/var/log/mysql/error.log
+
+dc

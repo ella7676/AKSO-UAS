@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Quiz Kepribadian</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ff6a00, #d83f7f);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 15px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        header p {
+            color: #ddd;
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #ff6a00;
+            width: 0%;
+            border-radius: 5px;
+        }
+
+        .quiz {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .quiz p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .quiz label {
+            font-size: 1.1em;
+            display: block;
+            margin: 12px 0;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn, .reset-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            background-color: #ff6a00;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #f5a623;
+        }
+
+        .reset-btn {
+            background-color: #d83f7f;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background-color: #e25678;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #fff;
+        }
+
+        .result h2 {
+            font-size: 2em;
+            color: #ff6a00;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mini Quiz Kepribadian</h1>
+            <p>Pilih jawaban yang paling menggambarkan kepribadianmu!</p>
+        </header>
+
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+
+        <form id="quiz-form" class="quiz">
+            <div id="question-1" class="question">
+                <p>1. Jika kamu bisa bepergian ke mana saja, kamu akan memilih tempat berikut:</p>
+                <label><input type="radio" name="q1" value="pantai" required onclick="updateProgress()"> Pantai</label>
+                <label><input type="radio" name="q1" value="gunung" onclick="updateProgress()"> Gunung</label>
+                <label><input type="radio" name="q1" value="kota" onclick="updateProgress()"> Kota besar</label>
+                <button type="button" class="submit-btn" onclick="nextQuestion(1)">Selanjutnya</button>
+            </div>
+
+            <div id="question-2" class="question" style="display: none;">
+                <p>2. Apa yang paling kamu nikmati saat bersantai?</p>
+                <label><input type="radio" name="q2" value="mendengarkan musik" required onclick="updateProgress()"> Mendengarkan musik</label>
+                <label><input type="radio" name="q2" value="bermain game" onclick="updateProgress()"> Bermain game</label>
+                <label><input type="radio" name="q2" value="berbicara dengan teman" onclick="updateProgress()"> Berbicara dengan teman</label>
+                <button type="button" class="submit-btn" onclick="nextQuestion(2)">Selanjutnya</button>
+            </div>
+
+            <div id="question-3" class="question" style="display: none;">
+                <p>3. Pilih hewan yang paling kamu sukai:</p>
+                <label><input type="radio" name="q3" value="kucing" required onclick="updateProgress()"> Kucing</label>
+                <label><input type="radio" name="q3" value="anjing" onclick="updateProgress()"> Anjing</label>
+                <label><input type="radio" name="q3" value="burung" onclick="updateProgress()"> Burung</label>
+                <button type="button" class="submit-btn" onclick="nextQuestion(3)">Selanjutnya</button>
+            </div>
+
+            <div id="question-4" class="question" style="display: none;">
+                <p>4. Saat menghadapi masalah, kamu lebih cenderung untuk:</p>
+                <label><input type="radio" name="q4" value="berpikir logis" required onclick="updateProgress()"> Berpikir logis</label>
+                <label><input type="radio" name="q4" value="merasa" onclick="updateProgress()"> Menggunakan perasaan</label>
+                <label><input type="radio" name="q4" value="mencari solusi" onclick="updateProgress()"> Mencari solusi praktis</label>
+                <button type="button" class="submit-btn" onclick="nextQuestion(4)">Selanjutnya</button>
+            </div>
+
+            <div id="question-5" class="question" style="display: none;">
+                <p>5. Bagaimana cara kamu menghadapi hari yang penuh stres?</p>
+                <label><input type="radio" name="q5" value="berolahraga" required onclick="updateProgress()"> Berolahraga</label>
+                <label><input type="radio" name="q5" value="berbicara dengan teman" onclick="updateProgress()"> Berbicara dengan teman</label>
+                <label><input type="radio" name="q5" value="menulis" onclick="updateProgress()"> Menulis jurnal</label>
+                <button type="button" class="submit-btn" onclick="showResult()">Kirim</button>
+            </div>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let totalQuestions = 5;
+        let answeredQuestions = 0;
+
+        function updateProgress() {
+            answeredQuestions++;
+            let percentage = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+        }
+
+        function nextQuestion(currentQuestion) {
+            // Hide current question
+            document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+            // Show next question
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question-${currentQuestion + 1}`).style.display = 'block';
+            }
+        }
+
+        function showResult() {
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked'),
+                q2: document.querySelector('input[name="q2"]:checked'),
+                q3: document.querySelector('input[name="q3"]:checked'),
+                q4: document.querySelector('input[name="q4"]:checked'),
+                q5: document.querySelector('input[name="q5"]:checked'),
+            };
+
+            const result = document.getElementById('result');
+            const form = document.getElementById('quiz-form');
+
+            if (!answers.q1 || !answers.q2 || !answers.q3 || !answers.q4 || !answers.q5) {
+                result.innerHTML = "<p style='color: red;'>Harap jawab semua pertanyaan!</p>";
+                return;
+            }
+
+            const personality = calculatePersonality(answers);
+            const percentage = Math.floor(Math.random() * 50) + 50; // Random 50-100%
+            result.innerHTML = `
+                <h2>Tipe Kepribadianmu:</h2>
+                <p><strong>${personality}</strong></p>
+                <p>${percentage}% orang di dunia memiliki kepribadian yang sama denganmu!</p>`;
+            form.style.display = 'none';
+        }
+
+        function calculatePersonality(answers) {
+    if (answers.q1.value === 'pantai' && answers.q2.value === 'mendengarkan musik' && answers.q3.value === 'kucing' && answers.q4.value === 'berpikir logis' && answers.q5.value === 'berolahraga') {
+        return `
+            <p><strong>Tenang dan suka menikmati kedamaian di alam 🌊</strong></p>
+            <p>Kamu adalah orang yang mencari kedamaian dan ketenangan dalam hidup. Aktivitas seperti berjalan di pantai, mendengarkan musik santai, atau berolahraga untuk meredakan stres membuatmu merasa terhubung dengan alam dan memberi ketenangan batin. Kamu cenderung berpikir secara logis, menyukai momen sendiri, dan selalu berusaha menjaga keseimbangan dalam hidup. Kucing adalah teman yang cocok dengan karakter tenang dan penuh perhatianmu.</p>
+        `;
+    } else if (answers.q1.value === 'gunung' && answers.q2.value === 'berbicara dengan teman' && answers.q3.value === 'anjing' && answers.q4.value === 'menggunakan perasaan' && answers.q5.value === 'berbicara dengan teman') {
+        return `
+            <p><strong>Petualang yang aktif dan sangat sosial 🐕</strong></p>
+            <p>Kamu adalah sosok yang penuh energi dan sangat sosial. Kamu senang berpetualang, terutama di alam terbuka seperti gunung, dan lebih memilih berbicara dengan teman-teman untuk melepas stres atau berbagi cerita. Kamu cenderung menggunakan perasaan dalam mengambil keputusan dan lebih sering mengandalkan intuisi daripada logika. Anjing, sebagai hewan yang setia dan penuh semangat, menggambarkan sifatmu yang ramah, terbuka, dan selalu siap untuk tantangan baru.</p>
+        `;
+    } else {
+        return `
+            <p><strong>Penuh semangat, selalu siap menghadapi tantangan di kota 🦜</strong></p>
+            <p>Kamu adalah tipe orang yang dinamis dan penuh semangat. Kota besar adalah tempat yang paling kamu sukai karena suasananya yang sibuk dan energik. Kamu cenderung menikmati berbagai aktivitas sosial, berinteraksi dengan orang banyak, dan selalu siap menghadapi tantangan baru. Kamu lebih sering mencari solusi praktis untuk mengatasi masalah dan tidak takut mengambil risiko. Burung adalah simbol dari kebebasanmu, yang suka beradaptasi dengan cepat dan terbang tinggi menuju tujuan yang baru.</p>
+        `;
+    }
+}
+
+    </script>
+</body>
+</html>

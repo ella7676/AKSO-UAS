@@ -1,0 +1,61 @@
+version: '3.8'
+
+name: docker-nginx-mysql
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf"
+    networks:
+      - my_network
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1g  # Menetapkan batas memori untuk container nginx
+        reservations:
+          memory: 512m  # Menetapkan memori yang dijamin untuk container nginx
+    configs:
+      - source: nginx_config
+        target: /etc/nginx/nginx.conf 
+
+  mysql:
+    image: mysql:latest
+    container_name: my_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: my_database
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+    networks:
+      - my_network
+    restart: always
+    deploy:     
+      resources:
+        limits:
+          memory: 1g  # Menetapkan batas memori untuk container mysql
+        reservations:
+          memory: 512m  # Menetapkan memori yang dijamin untuk container mysql
+    configs:
+      - source: mysql_config
+        target: /etc/mysql/conf.d/custom.cnf  # File konfigurasi MySQL
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+
+configs:
+  nginx_config:
+    file: ./nginx.conf
+  mysql_config:
+    file: ./mysql/custom.cnf  # File konfigurasi MySQL
